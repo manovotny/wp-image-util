@@ -54,12 +54,12 @@ class WP_Image {
             // Set instance of class.
             self::$instance = new self;
 
-        } // end if
+        }
 
         // Return instance.
         return self::$instance;
 
-    } // end get_instance
+    }
 
     /* Constructor
     ---------------------------------------------------------------------------------- */
@@ -74,7 +74,7 @@ class WP_Image {
         // Adds theme support for WordPress Featured Images.
         add_theme_support( 'post-thumbnails' );
 
-    } // end constructor
+    }
 
     /* Helpers
     ---------------------------------------------------------------------------------- */
@@ -100,7 +100,7 @@ class WP_Image {
         // Display thumbnail.
         _e( $this->get_thumbnail( $width, $height, $crop, $default ) );
 
-    } // end display_thumbnail
+    }
 
     /**
      * Extracts file extension from a file name, path or URL.
@@ -115,7 +115,7 @@ class WP_Image {
 
         return pathinfo( $file_string, PATHINFO_EXTENSION );
 
-    } // end get_file_extension
+    }
 
     /**
      * Extracts file name from a file, path, or URL.
@@ -130,7 +130,7 @@ class WP_Image {
 
         return pathinfo( $file_string, PATHINFO_FILENAME );
 
-    } // end get_file_name
+    }
 
     /**
      * Gets the first image inside of HTML.
@@ -157,14 +157,14 @@ class WP_Image {
                 // Return first image.
                 return $matches[ 1 ];
 
-            } // end if
+            }
 
-        } // end if
+        }
 
         // No images found, return fallback image.
         return $fallback;
 
-    } // end get_first_image
+    }
 
     /**
      * Returns a thumbnail of the first image in the current post.
@@ -190,7 +190,7 @@ class WP_Image {
             // Match width.
             $height = $width;
 
-        } // end if
+        }
 
         // Check for featured image.
         if ( has_post_thumbnail( $post->ID ) ) {
@@ -198,7 +198,7 @@ class WP_Image {
             // Return URL of featured image.
             return $this->get_the_post_thumbnail_uri( $post->ID, array( $width, $height ) );
 
-        } // end if
+        }
 
         // Get post content.
         $content = apply_filters( 'the_content', $post->post_content );
@@ -212,7 +212,7 @@ class WP_Image {
             // Use a generated thumbnail of the first image of the post.
             return $this->generate_thumbnail( $image_url, $width, $height, $crop );
 
-        } // end if
+        }
 
         // Check for default image.
         if ( ! empty( $default ) ) {
@@ -220,12 +220,12 @@ class WP_Image {
             // Use default image.
             return $default;
 
-        } // end if
+        }
 
         // No featured image, no image in post, no default, so return empty.
         return '';
 
-    } // end get_thumbnail
+    }
 
     /* Private
     ---------------------------------------------- */
@@ -253,7 +253,7 @@ class WP_Image {
         // Return image url.
         return $image_url;
 
-    } // end convert_image_url_to_path
+    }
 
     /**
      * Converts a url to an image to the path of the image.
@@ -278,7 +278,7 @@ class WP_Image {
         // Return image path.
         return $image_path;
 
-    } // end convert_image_url_to_path
+    }
 
     /**
      * Generate a thumbnail, at a specified size, from an image url.
@@ -304,7 +304,7 @@ class WP_Image {
 
             return $image_url;
 
-        } // end if
+        }
 
         // Check if image is in the upload directory.
         if ( ! $this->is_uploaded_image( $image_url ) ) {
@@ -316,7 +316,7 @@ class WP_Image {
 
             return $image_url;
 
-        } // end if
+        }
 
         // Remove query string.
         $image_url = $this->remove_query_string( $image_url );
@@ -339,7 +339,7 @@ class WP_Image {
             // Return existing thumbnail.
             return $thumbnail_url;
 
-        } // end if
+        }
 
         // Get image for editing.
         $thumbnail = wp_get_image_editor( $image_path );
@@ -356,12 +356,12 @@ class WP_Image {
             // Return generated thumbnail.
             return $thumbnail_url;
 
-        } // end if
+        }
 
         // Something went wrong with finding or creating the thumbnail, so return original image.
         return $image_url;
 
-    } // end generate_thumbnail
+    }
 
     /**
      * Generates a thumbnail name.
@@ -385,7 +385,7 @@ class WP_Image {
         // Generate thumbnail name.
         return $file_name . '-' . $width . 'x' . $height . '.' . $file_extension;
 
-    } // end generate_thumbnail_name
+    }
 
     /**
      * Gets a post's featured image URL.
@@ -405,7 +405,7 @@ class WP_Image {
         // Return featured image URL.
         return $image[ 0 ];
 
-    } // end get_the_post_thumbnail_uri
+    }
 
     /**
      * @param   string      $image_url  Image url.
@@ -425,7 +425,7 @@ class WP_Image {
         // Check if hosts match, which means we own / possess the image.
         return ( $parsed_image_url[ 'host' ] !== $parsed_site_url[ 'host' ] );
 
-    } // end is_external_image
+    }
 
     /**
      * Gets the path of an image based on image url.
@@ -444,7 +444,7 @@ class WP_Image {
         // Remove upload base url from image url.
         return ( false !== strpos( $image_url, $wp_upload_directory[ 'baseurl' ] ) );
 
-    } // end is_uploaded_image
+    }
 
     /**
      * Removes query string from a url.
@@ -460,6 +460,6 @@ class WP_Image {
         // Remove query string.
         return strtok( $url, '?' );
 
-    } // end remove_query_string
+    }
 
-} // end class
+}
