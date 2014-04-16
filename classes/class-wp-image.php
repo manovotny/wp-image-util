@@ -91,7 +91,7 @@ class WP_Image {
      * @param   int         $height (optional)      Height of thumbnail output (will match width, if not supplied).
      * @param   boolean     $crop (optional)        If thumbnail should be cropped.
      * @param   string      $default (optional)     Path to default image, if there is no image in the post.
-     * 
+     *
      * @since       0.1.0
      * @version     0.1.0
      */
@@ -107,7 +107,7 @@ class WP_Image {
      *
      * @param   string  $file_string    A file name, path, or URL.
      * @return  string                  The file extension.
-     * 
+     *
      * @since       0.1.0
      * @version     0.1.0
      */
@@ -122,7 +122,7 @@ class WP_Image {
      *
      * @param   string  $file_string    A file, path, or URL.
      * @return  string                  The file name.
-     * 
+     *
      * @since       0.1.0
      * @version     0.1.0
      */
@@ -138,7 +138,7 @@ class WP_Image {
      * @param   string  $content                HTML (usually post content).
      * @param   string  $fallback (optional)    URL of fallback image to use, if none are found in HTML.
      * @return  string                          URL of first image.
-     * 
+     *
      * @since       0.1.0
      * @version     0.1.0
      */
@@ -176,7 +176,7 @@ class WP_Image {
      * @param       boolean     $crop (optional)        If thumbnail should be cropped.
      * @param       string      $default (optional)     Path to default image, if there is no image in the post.
      * @return      string                              URL to thumbnail.
-     * 
+     *
      * @since       0.1.0
      * @version     0.1.0
      */
@@ -238,14 +238,14 @@ class WP_Image {
      * @param   int         $height (optional)  Height of thumbnail to create.
      * @param   boolean     $crop (optional)    If thumbnail image should be cropped.
      * @return  string                          Thumbnail image URL or original image URL.
-     * 
+     *
      * @since       0.1.0
-     * @version     0.1.0
+     * @version     0.1.1
      */
     private function generate_thumbnail( $image_url, $width, $height, $crop = true ) {
 
         // Remove query string.
-        $image_url = substr( $image_url, 0, strpos( $image_url, '?' ) );
+        $image_url = strtok( $image_url,'?' );
 
         // Parse image URL.
         $parsed_image_url = parse_url( $image_url );
@@ -313,7 +313,7 @@ class WP_Image {
      * @param   string  $post_id    Post id.
      * @param   mixed   $size       Size of featured image to return.
      * @return  string              Featured image URL.
-     * 
+     *
      * @since       0.1.0
      * @version     0.1.0
      */
