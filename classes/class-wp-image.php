@@ -231,6 +231,56 @@ class WP_Image {
     ---------------------------------------------- */
 
     /**
+     * Converts a path to an image to the url of the image.
+     *
+     * @param   string      $image_path     Image path.
+     * @return  string                      Image url.
+     *
+     * @since       0.2.0
+     * @version     0.1.0
+     */
+    private function convert_image_path_to_url( $image_path ) {
+
+        // Get WordPress upload directory information.
+        $wp_upload_directory = wp_upload_dir();
+
+        // Remove upload base directory from image path.
+        $image_url = str_replace( $wp_upload_directory[ 'basedir' ], '', $image_path );
+
+        // Add upload url to image.
+        $image_url = $wp_upload_directory[ 'baseurl' ] . $image_url;
+
+        // Return image url.
+        return $image_url;
+
+    } // end convert_image_url_to_path
+
+    /**
+     * Converts a url to an image to the path of the image.
+     *
+     * @param   string      $image_url      Image url.
+     * @return  string                      Image path.
+     *
+     * @since       0.2.0
+     * @version     0.1.0
+     */
+    private function convert_image_url_to_path( $image_url ) {
+
+        // Get WordPress upload directory information.
+        $wp_upload_directory = wp_upload_dir();
+
+        // Remove upload base url from image url.
+        $image_path = str_replace( $wp_upload_directory[ 'baseurl' ], '', $image_url );
+
+        // Add upload path to image.
+        $image_path = $wp_upload_directory[ 'basedir' ] . $image_path;
+
+        // Return image path.
+        return $image_path;
+
+    } // end convert_image_url_to_path
+
+    /**
      * Generate a thumbnail, at a specified size, from an image url.
      *
      * @param   string      $image_url          URL to image to create a thumbnail with.
@@ -240,51 +290,54 @@ class WP_Image {
      * @return  string                          Thumbnail image URL or original image URL.
      *
      * @since       0.1.0
-     * @version     0.1.1
+     * @version     0.2.0
      */
     private function generate_thumbnail( $image_url, $width, $height, $crop = true ) {
 
-        // Remove query string.
-        $image_url = strtok( $image_url,'?' );
-
-        // Parse image URL.
-        $parsed_image_url = parse_url( $image_url );
-
-        // Parse site URL.
-        $parsed_site_url = parse_url( site_url() );
-
-        // Check if hosts match, which means we have control of the image to resize it.
-        if ( $parsed_image_url['host'] !== $parsed_site_url['host'] ) {
+        // Check for external image.
+        if ( $this->is_external_image( $image_url ) ) {
 
             /*
-             * Hosts do not match, so we cannot resize the image. We have no choice but to
-             * return the original image.
+             * We are not in possession of the image. We have no choice but to return
+             * the original image.
              */
 
             return $image_url;
 
         } // end if
 
-        // Get image path (ie. "wp-content/uploads/yyyy/mm/image.jpg").
-        $image_path = substr( $image_url, strpos( $image_url, 'wp-content' ) );
+        // Check if image is in the upload directory.
+        if ( ! $this->is_uploaded_image( $image_url ) ) {
+
+            /*
+             * We don't want to mess with images outside of the uploads, like smiley faces.
+             * We have no choice but to return the original image.
+             */
+
+            return $image_url;
+
+        } // end if
+
+        // Remove query string.
+        $image_url = $this->remove_query_string( $image_url );
+
+        // Get image path.
+        $image_path = $this->convert_image_url_to_path( $image_url );
 
         // Generate thumbnail name.
-        $thumbnail_name = $this->get_file_name( $image_path ) . '-' . $width . 'x' . $height . '.' . $this->get_file_extension( $image_path );
+        $thumbnail_name = $this->generate_thumbnail_name( $image_url, $width, $height );
 
-        // Explode image path.
-        $image_path_exploded = explode( '/', $image_path );
+        // Get path to generated thumbnail name.
+        $thumbnail_path = trailingslashit( dirname( $image_path ) ) . $thumbnail_name;
 
-        // Replace image URL with requested thumbnail image name.
-        $image_path_exploded[ count( $image_path_exploded ) - 1 ] = $thumbnail_name;
-
-        // Implode to set thumbnail image URL.
-        $thumbnail_path = implode( '/', $image_path_exploded );
+        // Get url to proposed generated thumbnail.
+        $thumbnail_url = $this->convert_image_path_to_url( $thumbnail_path );
 
         // Check if thumbnail already exists.
         if ( is_file( $thumbnail_path ) ) {
 
             // Return existing thumbnail.
-            return site_url() . '/' .  $thumbnail_path;
+            return $thumbnail_url;
 
         } // end if
 
@@ -300,12 +353,39 @@ class WP_Image {
             // Save thumbnail.
             $thumbnail->save( $thumbnail_path );
 
+            // Return generated thumbnail.
+            return $thumbnail_url;
+
         } // end if
 
         // Something went wrong with finding or creating the thumbnail, so return original image.
         return $image_url;
 
     } // end generate_thumbnail
+
+    /**
+     * Generates a thumbnail name.
+     *
+     * @param   string  $image_string   Image path or url.
+     * @param   float   $width          Width of thumbnail.
+     * @param   float   $height         Height of thumbnail.
+     * @return  string                  Generated thumbnail name.
+     *
+     * @since       0.2.0
+     * @version     0.1.0
+     */
+    private function generate_thumbnail_name( $image_string, $width, $height ) {
+
+        // Get file name.
+        $file_name = $this->get_file_name( $image_string );
+
+        // Get file extension.
+        $file_extension = $this->get_file_extension( $image_string );
+
+        // Generate thumbnail name.
+        return $file_name . '-' . $width . 'x' . $height . '.' . $file_extension;
+
+    } // end generate_thumbnail_name
 
     /**
      * Gets a post's featured image URL.
@@ -326,5 +406,60 @@ class WP_Image {
         return $image[ 0 ];
 
     } // end get_the_post_thumbnail_uri
+
+    /**
+     * @param   string      $image_url  Image url.
+     * @return  boolean                 Whether an image is internally or externally hosted.
+     *
+     * @since       0.2.0
+     * @version     0.1.0
+     */
+    private function is_external_image( $image_url ) {
+
+        // Parse url.
+        $parsed_image_url = parse_url( $image_url );
+
+        // Parse site url.
+        $parsed_site_url = parse_url( site_url() );
+
+        // Check if hosts match, which means we own / possess the image.
+        return ( $parsed_image_url[ 'host' ] !== $parsed_site_url[ 'host' ] );
+
+    } // end is_external_image
+
+    /**
+     * Gets the path of an image based on image url.
+     *
+     * @param   string  $image_url  Image url.
+     * @return  string              Image path.
+     *
+     * @since       0.2.0
+     * @version     0.1.0
+     */
+    private function is_uploaded_image( $image_url ) {
+
+        // Get WordPress upload directory information.
+        $wp_upload_directory = wp_upload_dir();
+
+        // Remove upload base url from image url.
+        return ( false !== strpos( $image_url, $wp_upload_directory[ 'baseurl' ] ) );
+
+    } // end is_uploaded_image
+
+    /**
+     * Removes query string from a url.
+     *
+     * @param   string  $url    Any url.
+     * @return  string          Url with the query string removed.
+     *
+     * @since       0.2.0
+     * @version     0.1.0
+     */
+    private function remove_query_string( $url ) {
+
+        // Remove query string.
+        return strtok( $url, '?' );
+
+    } // end remove_query_string
 
 } // end class
