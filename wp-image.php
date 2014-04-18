@@ -4,21 +4,24 @@
  *
  * An image utility for WordPress.
  *
- * @package     WP_Images
- * @author      Michael Novotny <manovotny@gmail.com>
- * @license     GPL-3.0+
- * @link
- * @copyright   2014 Michael Novotny
+ * @link https://github.com/manovotny/wp-image
+ * @since 0.1.0
+ *
+ * @package WP_Images
+ *
+ * @author Michael Novotny <manovotny@gmail.com>
+ * @copyright 2014 Michael Novotny
+ * @license GPL-3.0+
  *
  * @wordpress-plugin
  * Plugin Name: WP Image
- * Plugin URI:
+ * Plugin URI: https://github.com/manovotny/wp-image
  * Description: An image utility for WordPress.
- * Version:     0.1.0
- * Author:      Michael Novotny
- * Author URI:  http://manovotny.com
+ * Version: 0.2.0
+ * Author: Michael Novotny
+ * Author URI: http://manovotny.com
  * Text Domain: English
- * License:     GPL-3.0+
+ * License: GPL-3.0+
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  * Domain Path: /lang
  */

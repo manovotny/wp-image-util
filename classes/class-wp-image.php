@@ -1,12 +1,15 @@
 <?php
 /**
- * WP_Image.
+ * WP Image.
  *
- * @package     WP_Image
- * @author      Michael Novotny <manovotny@gmail.com>
- * @license     GPL-3.0+
- * @link        https://github.com/manovotny/wp-gist
- * @copyright   2014 Michael Novotny
+ * @link https://github.com/manovotny/wp-image
+ * @since 0.1.0
+ *
+ * @package WP_Image
+ *
+ * @author Michael Novotny <manovotny@gmail.com>
+ * @copyright 2014 Michael Novotny
+ * @license GPL-3.0+
  */
 
 /*
@@ -14,7 +17,7 @@
 
     1. Properties
     2. Constructor
-    3. Helpers
+    3. Methods
 
 /\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\//\/\/\/\/\/\/\/\/\/\
 */
@@ -28,23 +31,20 @@ class WP_Image {
     ---------------------------------------------- */
 
     /**
-     * Instance of the WP_Image class.
+     * Instance of the class.
      *
-     * @access      protected static
-     * @var         WP_Image
-     *
-     * @since       0.1.0
-     * @version     0.1.0
+     * @since 0.1.0
+     * @access protected static
+     * @var WP_Image
      */
     protected static $instance = null;
 
     /**
      * Get accessor method for instance property.
      *
-     * @return      WP_Image  Instance of the WP_Image class.
+     * @since 0.1.0
      *
-     * @since       0.1.0
-     * @version     0.1.0
+     * @return WP_Image Instance of the WP_Image class.
      */
     public static function get_instance() {
 
@@ -61,197 +61,21 @@ class WP_Image {
 
     }
 
-    /* Constructor
-    ---------------------------------------------------------------------------------- */
-    /**
-     * Initializes plugin.
-     *
-     * @since       0.1.0
-     * @version     0.1.0
-     */
-    public function __construct() {
-
-        // Adds theme support for WordPress Featured Images.
-        add_theme_support( 'post-thumbnails' );
-
-    }
-
-    /* Helpers
+    /* Methods
     ---------------------------------------------------------------------------------- */
 
     /* Public
     ---------------------------------------------- */
 
     /**
-     * Echoes a thumbnail of the first image in the current post.
-     *
-     * Must be used inside of the loop.
-     *
-     * @param   int         $width                  Width of thumbnail output.
-     * @param   int         $height (optional)      Height of thumbnail output (will match width, if not supplied).
-     * @param   boolean     $crop (optional)        If thumbnail should be cropped.
-     * @param   string      $default (optional)     Path to default image, if there is no image in the post.
-     *
-     * @since       0.1.0
-     * @version     0.1.0
-     */
-    public function display_thumbnail( $width, $height = null, $crop = true, $default = null ) {
-
-        // Display thumbnail.
-        _e( $this->get_thumbnail( $width, $height, $crop, $default ) );
-
-    }
-
-    /**
-     * Extracts file extension from a file name, path or URL.
-     *
-     * @param   string  $file_string    A file name, path, or URL.
-     * @return  string                  The file extension.
-     *
-     * @since       0.1.0
-     * @version     0.1.0
-     */
-    public function get_file_extension( $file_string )  {
-
-        return pathinfo( $file_string, PATHINFO_EXTENSION );
-
-    }
-
-    /**
-     * Extracts file name from a file, path, or URL.
-     *
-     * @param   string  $file_string    A file, path, or URL.
-     * @return  string                  The file name.
-     *
-     * @since       0.1.0
-     * @version     0.1.0
-     */
-    public function get_file_name( $file_string ) {
-
-        return pathinfo( $file_string, PATHINFO_FILENAME );
-
-    }
-
-    /**
-     * Extracts file name and extension from a file, path, or URL.
-     *
-     * @param   string  $file_string    A file, path, or URL.
-     * @return  string                  The file name.
-     *
-     * @since       0.2.0
-     * @version     0.1.0
-     */
-    public function get_file_name_and_extension( $file_string ) {
-
-        return pathinfo( $file_string, PATHINFO_BASENAME );
-
-    }
-
-    /**
-     * Gets the first image inside of HTML.
-     *
-     * @param   string  $content                Content with some markup, usually post content.
-     * @param   string  $fallback (optional)    URL of fallback image to use, if none are found in HTML.
-     * @return  string                          URL of first image.
-     *
-     * @since       0.1.0
-     * @version     0.1.0
-     */
-    public function get_first_image( $content, $fallback = '' ) {
-
-        // Check for content.
-        if ( ! empty( $content ) ) {
-
-            // Find all images.
-            $pattern = '~<img (?:.*?)src(?:\s*)=(?:\s*)"(.*?)"(?:.*?)/>~';
-            preg_match( $pattern, $content, $matches );
-
-            // Check for matches.
-            if ( ! empty( $matches ) ) {
-
-                // Return first image.
-                return $matches[ 1 ];
-
-            }
-
-        }
-
-        // No images found, return fallback image.
-        return $fallback;
-
-    }
-
-    /**
-     * Returns a thumbnail of the first image in the current post.
-     *
-     * Must be used inside of the loop.
-     *
-     * @param       int         $width                  Width of thumbnail output.
-     * @param       int         $height (optional)      Height of thumbnail output (will match width, if not supplied).
-     * @param       boolean     $crop (optional)        If thumbnail should be cropped.
-     * @param       string      $default (optional)     Path to default image, if there is no image in the post.
-     * @return      string                              URL to thumbnail.
-     *
-     * @since       0.1.0
-     * @version     0.1.0
-     */
-    public function get_thumbnail( $width, $height = null, $crop = true, $default = null ) {
-
-        global $post;
-
-        // Check for height.
-        if ( is_null( $height ) ) {
-
-            // Match width.
-            $height = $width;
-
-        }
-
-        // Check for featured image.
-        if ( has_post_thumbnail( $post->ID ) ) {
-
-            // Return URL of featured image.
-            return $this->get_the_post_thumbnail_uri( $post->ID, array( $width, $height ) );
-
-        }
-
-        // Get the URL of the first image in the post content.
-        $image_url = $this->get_first_image( $post->post_content );
-
-        // Check for image url.
-        if ( ! empty( $image_url ) ) {
-
-            // Use a generated thumbnail of the first image of the post.
-            return $this->generate_thumbnail( $image_url, $width, $height, $crop );
-
-        }
-
-        // Check for default image.
-        if ( ! empty( $default ) ) {
-
-            // Use default image.
-            return $default;
-
-        }
-
-        // No featured image, no image in post, no default, so return empty.
-        return '';
-
-    }
-
-    /* Private
-    ---------------------------------------------- */
-
-    /**
      * Converts a path to an image to the url of the image.
      *
-     * @param   string      $image_path     Image path.
-     * @return  string                      Image url.
+     * @since 0.2.0
      *
-     * @since       0.2.0
-     * @version     0.1.0
+     * @param string $image_path Image path.
+     * @return string Image url.
      */
-    private function convert_image_path_to_url( $image_path ) {
+    public function convert_image_path_to_url( $image_path ) {
 
         // Get WordPress upload directory information.
         $wp_upload_directory = wp_upload_dir();
@@ -270,13 +94,12 @@ class WP_Image {
     /**
      * Converts a url to an image to the path of the image.
      *
-     * @param   string      $image_url      Image url.
-     * @return  string                      Image path.
+     * @since 0.2.0
      *
-     * @since       0.2.0
-     * @version     0.1.0
+     * @param string $image_url Image url.
+     * @return string Image path.
      */
-    private function convert_image_url_to_path( $image_url ) {
+    public function convert_image_url_to_path( $image_url ) {
 
         // Get WordPress upload directory information.
         $wp_upload_directory = wp_upload_dir();
@@ -293,18 +116,36 @@ class WP_Image {
     }
 
     /**
+     * Echoes a thumbnail of the first image in the current post.
+     *
+     * Must be used inside of the loop.
+     *
+     * @since 0.1.0
+     *
+     * @param int $width Width of thumbnail output.
+     * @param int $height Optional. Height of thumbnail output (will match width, if not supplied).
+     * @param boolean $crop Optional. If thumbnail should be cropped.
+     * @param string $default Optional. Path to default image, if there is no image in the post.
+     */
+    public function display_thumbnail( $width, $height = null, $crop = true, $default = null ) {
+
+        // Display thumbnail.
+        _e( $this->get_thumbnail( $width, $height, $crop, $default ) );
+
+    }
+
+    /**
      * Generate a thumbnail, at a specified size, from an image url.
      *
-     * @param   string      $image_url          URL to image to create a thumbnail with.
-     * @param   int         $width              Width of thumbnail to create.
-     * @param   int         $height (optional)  Height of thumbnail to create.
-     * @param   boolean     $crop (optional)    If thumbnail image should be cropped.
-     * @return  string                          Thumbnail image URL or original image URL.
-     *
-     * @since       0.1.0
-     * @version     0.2.0
+     * @since 0.1.0
+     * 
+     * @param string $image_url URL to image to create a thumbnail with.
+     * @param int $width Width of thumbnail to create.
+     * @param int $height Optional. Height of thumbnail to create.
+     * @param boolean $crop Optional. If thumbnail image should be cropped.
+     * @return string Thumbnail image URL or original image URL.
      */
-    private function generate_thumbnail( $image_url, $width, $height, $crop = true ) {
+    public function generate_thumbnail( $image_url, $width, $height, $crop = true ) {
 
         // Check for external image.
         if ( $this->is_external_image( $image_url ) ) {
@@ -378,15 +219,14 @@ class WP_Image {
     /**
      * Generates a thumbnail name.
      *
-     * @param   string  $image_string   Image path or url.
-     * @param   float   $width          Width of thumbnail.
-     * @param   float   $height         Height of thumbnail.
-     * @return  string                  Generated thumbnail name.
-     *
-     * @since       0.2.0
-     * @version     0.1.0
+     * @since 0.2.0
+     * 
+     * @param string $image_string Image path or url.
+     * @param float $width Width of thumbnail.
+     * @param float $height Height of thumbnail.
+     * @return string Generated thumbnail name.
      */
-    private function generate_thumbnail_name( $image_string, $width, $height ) {
+    public function generate_thumbnail_name( $image_string, $width, $height ) {
 
         // Get file name.
         $file_name = $this->get_file_name( $image_string );
@@ -400,16 +240,90 @@ class WP_Image {
     }
 
     /**
+     * Extracts file extension from a file name, path or URL.
+     *
+     * @since 0.1.0
+     * 
+     * @param string $file_string A file name, path, or URL.
+     * @return string The file extension.
+     */
+    public function get_file_extension( $file_string )  {
+
+        return pathinfo( $file_string, PATHINFO_EXTENSION );
+
+    }
+
+    /**
+     * Extracts file name from a file, path, or URL.
+     *
+     * @since 0.1.0
+     * 
+     * @param  string $file_string A file, path, or URL.
+     * @return string The file name.
+     */
+    public function get_file_name( $file_string ) {
+
+        return pathinfo( $file_string, PATHINFO_FILENAME );
+
+    }
+
+    /**
+     * Extracts file name and extension from a file, path, or URL.
+     *
+     * @since 0.2.0
+     * 
+     * @param string $file_string A file, path, or URL.
+     * @return string The file name.
+     */
+    public function get_file_name_and_extension( $file_string ) {
+
+        return pathinfo( $file_string, PATHINFO_BASENAME );
+
+    }
+
+    /**
+     * Gets the first image inside of HTML.
+     *
+     * @since 0.1.0
+     * 
+     * @param string $content Content with some markup, usually post content.
+     * @param string $fallback Optional. URL of fallback image to use, if none are found in HTML.
+     * @return string URL of first image.
+     */
+    public function get_first_image( $content, $fallback = '' ) {
+
+        // Check for content.
+        if ( ! empty( $content ) ) {
+
+            // Find all images.
+            $pattern = '~<img (?:.*?)src(?:\s*)=(?:\s*)"(.*?)"(?:.*?)/>~';
+            preg_match( $pattern, $content, $matches );
+
+            // Check for matches.
+            if ( ! empty( $matches ) ) {
+
+                // Return first image.
+                return $matches[ 1 ];
+
+            }
+
+        }
+
+        // No images found, return fallback image.
+        return $fallback;
+
+    }
+
+    /**
      * Gets a post's featured image URL.
      *
-     * @param   string  $post_id    Post id.
-     * @param   mixed   $size       Size of featured image to return.
-     * @return  string              Featured image URL.
-     *
-     * @since       0.1.0
-     * @version     0.1.0
+     * @since 0.1.0
+     * 
+     * @param string $post_id Post id.
+     * @param mixed $size Size of featured image to return.
+     * @return string Featured image URL.
      */
-    private function get_the_post_thumbnail_uri( $post_id, $size ) {
+    public function get_the_post_thumbnail_uri( $post_id, $size ) {
 
         // Get featured image.
         $image = wp_get_attachment_image_src( get_post_thumbnail_id( $post_id ), $size );
@@ -420,13 +334,71 @@ class WP_Image {
     }
 
     /**
-     * @param   string      $image_url  Image url.
-     * @return  boolean                 Whether an image is internally or externally hosted.
+     * Returns a thumbnail of the first image in the current post.
      *
-     * @since       0.2.0
-     * @version     0.1.0
+     * Must be used inside of the loop.
+     *
+     * @since 0.1.0
+     * 
+     * @param int $width Width of thumbnail output.
+     * @param int $height Optional. Height of thumbnail output (will match width, if not supplied).
+     * @param boolean $crop Optional. If thumbnail should be cropped.
+     * @param string $default Optional. Path to default image, if there is no image in the post.
+     * @return string URL to thumbnail.
      */
-    private function is_external_image( $image_url ) {
+    public function get_thumbnail( $width, $height = null, $crop = true, $default = null ) {
+
+        global $post;
+
+        // Check for height.
+        if ( is_null( $height ) ) {
+
+            // Match width.
+            $height = $width;
+
+        }
+
+        // Check for featured image.
+        if ( has_post_thumbnail( $post->ID ) ) {
+
+            // Return URL of featured image.
+            return $this->get_the_post_thumbnail_uri( $post->ID, array( $width, $height ) );
+
+        }
+
+        // Get the URL of the first image in the post content.
+        $image_url = $this->get_first_image( $post->post_content );
+
+        // Check for image url.
+        if ( ! empty( $image_url ) ) {
+
+            // Use a generated thumbnail of the first image of the post.
+            return $this->generate_thumbnail( $image_url, $width, $height, $crop );
+
+        }
+
+        // Check for default image.
+        if ( ! empty( $default ) ) {
+
+            // Use default image.
+            return $default;
+
+        }
+
+        // No featured image, no image in post, no default, so return empty.
+        return '';
+
+    }
+
+    /**
+     * Determines if an image url is externally hosted.
+     *
+     * @since 0.2.0
+     *
+     * @param string $image_url Image url.
+     * @return boolean Whether an image is internally or externally hosted.
+     */
+    public function is_external_image( $image_url ) {
 
         // Parse url.
         $parsed_image_url = parse_url( $image_url );
@@ -442,13 +414,12 @@ class WP_Image {
     /**
      * Gets the path of an image based on image url.
      *
-     * @param   string  $image_url  Image url.
-     * @return  string              Image path.
+     * @since 0.2.0
      *
-     * @since       0.2.0
-     * @version     0.1.0
+     * @param string $image_url Image url.
+     * @return string Image path.
      */
-    private function is_uploaded_image( $image_url ) {
+    public function is_uploaded_image( $image_url ) {
 
         // Get WordPress upload directory information.
         $wp_upload_directory = wp_upload_dir();
@@ -461,13 +432,12 @@ class WP_Image {
     /**
      * Removes query string from a url.
      *
-     * @param   string  $url    Any url.
-     * @return  string          Url with the query string removed.
+     * @since 0.2.0
      *
-     * @since       0.2.0
-     * @version     0.1.0
+     * @param string $url Any url.
+     * @return string Url with the query string removed.
      */
-    private function remove_query_string( $url ) {
+    public function remove_query_string( $url ) {
 
         // Remove query string.
         return strtok( $url, '?' );
