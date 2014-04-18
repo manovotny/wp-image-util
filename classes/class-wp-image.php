@@ -133,9 +133,24 @@ class WP_Image {
     }
 
     /**
+     * Extracts file name and extension from a file, path, or URL.
+     *
+     * @param   string  $file_string    A file, path, or URL.
+     * @return  string                  The file name.
+     *
+     * @since       0.2.0
+     * @version     0.1.0
+     */
+    public function get_file_name_and_extension( $file_string ) {
+
+        return pathinfo( $file_string, PATHINFO_BASENAME );
+
+    }
+
+    /**
      * Gets the first image inside of HTML.
      *
-     * @param   string  $content                HTML (usually post content).
+     * @param   string  $content                Content with some markup, usually post content.
      * @param   string  $fallback (optional)    URL of fallback image to use, if none are found in HTML.
      * @return  string                          URL of first image.
      *
@@ -200,11 +215,8 @@ class WP_Image {
 
         }
 
-        // Get post content.
-        $content = apply_filters( 'the_content', $post->post_content );
-
         // Get the URL of the first image in the post content.
-        $image_url = $this->get_first_image( $content );
+        $image_url = $this->get_first_image( $post->post_content );
 
         // Check for image url.
         if ( ! empty( $image_url ) ) {
