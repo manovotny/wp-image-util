@@ -221,18 +221,18 @@ class WP_Image {
      *
      * @since 0.2.0
      * 
-     * @param string $image_string Image path or url.
+     * @param string $image Image path or url.
      * @param float $width Width of thumbnail.
      * @param float $height Height of thumbnail.
      * @return string Generated thumbnail name.
      */
-    public function generate_thumbnail_name( $image_string, $width, $height ) {
+    public function generate_thumbnail_name( $image, $width, $height ) {
 
         // Get file name.
-        $file_name = $this->get_file_name( $image_string );
+        $file_name = $this->get_file_name( $image );
 
         // Get file extension.
-        $file_extension = $this->get_file_extension( $image_string );
+        $file_extension = $this->get_file_extension( $image );
 
         // Generate thumbnail name.
         return $file_name . '-' . $width . 'x' . $height . '.' . $file_extension;
@@ -244,12 +244,12 @@ class WP_Image {
      *
      * @since 0.1.0
      * 
-     * @param string $file_string A file name, path, or URL.
+     * @param string $image A file name, path, or URL.
      * @return string The file extension.
      */
-    public function get_file_extension( $file_string )  {
+    public function get_file_extension( $image )  {
 
-        return pathinfo( $file_string, PATHINFO_EXTENSION );
+        return pathinfo( $image, PATHINFO_EXTENSION );
 
     }
 
@@ -258,12 +258,12 @@ class WP_Image {
      *
      * @since 0.1.0
      * 
-     * @param  string $file_string A file, path, or URL.
+     * @param  string $image A file, path, or URL.
      * @return string The file name.
      */
-    public function get_file_name( $file_string ) {
+    public function get_file_name( $image ) {
 
-        return pathinfo( $file_string, PATHINFO_FILENAME );
+        return pathinfo( $image, PATHINFO_FILENAME );
 
     }
 
@@ -272,12 +272,12 @@ class WP_Image {
      *
      * @since 0.2.0
      * 
-     * @param string $file_string A file, path, or URL.
+     * @param string $image A file, path, or URL.
      * @return string The file name.
      */
-    public function get_file_name_and_extension( $file_string ) {
+    public function get_file_name_and_extension( $image ) {
 
-        return pathinfo( $file_string, PATHINFO_BASENAME );
+        return pathinfo( $image, PATHINFO_BASENAME );
 
     }
 
