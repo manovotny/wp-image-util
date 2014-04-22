@@ -45,7 +45,7 @@ if ( ! defined( 'WPINC' ) ) {
 ---------------------------------------------------------------------------------- */
 
 // Include plugin classes.
-require_once( __DIR__ . '/classes/class-wp-image-util.php' );
+require_once __DIR__ . '/classes/class-wp-image-util.php';
 
 // Load plugin.
 add_action( 'plugins_loaded', array( 'WP_Image_Util', 'get_instance' ) );
