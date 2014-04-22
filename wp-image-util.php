@@ -1,37 +1,32 @@
 <?php
 /**
- * WP Image Util.
- *
  * An image utility for WordPress.
  *
- * @link https://github.com/manovotny/wp-image-util
- * @since 0.1.0
+ * A collection of helpful utilities for working with images in WordPress.
  *
- * @package WPImageUtil
- *
+ * @package WP_Image_Util
  * @author Michael Novotny <manovotny@gmail.com>
- * @copyright 2014 Michael Novotny
  * @license GPL-3.0+
+ * @link https://github.com/manovotny/wp-image-util
+ * @copyright 2014 Michael Novotny
  *
  * @wordpress-plugin
- * Plugin Name: WPImageUtil
+ * Plugin Name: WP_Image_Util
  * Plugin URI: https://github.com/manovotny/wp-image-util
  * Description: An image utility for WordPress.
  * Version: 0.3.0
  * Author: Michael Novotny
  * Author URI: http://manovotny.com
- * Text Domain: English
  * License: GPL-3.0+
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
- * Domain Path: /lang
  */
+
 
 /*
 /\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\ CONTENTS /\/\/\/\/\/\/\/\/\/\/\/\/\/\//\/\/\/\/\
 
     1. Access
     2. Plugin
-    3. Admin
 
 /\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\//\/\/\/\/\/\/\/\/\/\
 */

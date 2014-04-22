@@ -1,15 +1,7 @@
 <?php
 /**
- * WP_Image_Util.
- *
- * @link https://github.com/manovotny/wp-image-util
- * @since 0.1.0
- *
  * @package WP_Image_Util
- *
  * @author Michael Novotny <manovotny@gmail.com>
- * @copyright 2014 Michael Novotny
- * @license GPL-3.0+
  */
 
 /*
@@ -32,16 +24,12 @@ class WP_Image_Util {
     /**
      * Instance of the class.
      *
-     * @since 0.1.0
-     * @access protected static
      * @var WP_Image_Util
      */
     protected static $instance = null;
 
     /**
      * Get accessor method for instance property.
-     *
-     * @since 0.1.0
      *
      * @return WP_Image_Util Instance of the WP_Image_Util class.
      */
@@ -69,8 +57,6 @@ class WP_Image_Util {
     /**
      * Converts a path to an image to the url of the image.
      *
-     * @since 0.2.0
-     *
      * @param string $image_path Image path.
      * @return string Image url.
      */
@@ -92,8 +78,6 @@ class WP_Image_Util {
 
     /**
      * Converts a url to an image to the path of the image.
-     *
-     * @since 0.2.0
      *
      * @param string $image_url Image url.
      * @return string Image path.
@@ -119,8 +103,6 @@ class WP_Image_Util {
      *
      * Must be used inside of the loop.
      *
-     * @since 0.1.0
-     *
      * @param int $width Width of thumbnail output.
      * @param int $height Optional. Height of thumbnail output (will match width, if not supplied).
      * @param boolean $crop Optional. If thumbnail should be cropped.
@@ -136,8 +118,6 @@ class WP_Image_Util {
     /**
      * Generate a thumbnail, at a specified size, from an image url.
      *
-     * @since 0.1.0
-     * 
      * @param string $image_url URL to image to create a thumbnail with.
      * @param int $width Width of thumbnail to create.
      * @param int $height Optional. Height of thumbnail to create.
@@ -218,8 +198,6 @@ class WP_Image_Util {
     /**
      * Generates a thumbnail name.
      *
-     * @since 0.2.0
-     * 
      * @param string $image Image path or url.
      * @param float $width Width of thumbnail.
      * @param float $height Height of thumbnail.
@@ -241,8 +219,6 @@ class WP_Image_Util {
     /**
      * Extracts file extension from a file name, path or URL.
      *
-     * @since 0.1.0
-     * 
      * @param string $image A file name, path, or URL.
      * @return string The file extension.
      */
@@ -255,8 +231,6 @@ class WP_Image_Util {
     /**
      * Extracts file name from a file, path, or URL.
      *
-     * @since 0.1.0
-     * 
      * @param  string $image A file, path, or URL.
      * @return string The file name.
      */
@@ -269,8 +243,6 @@ class WP_Image_Util {
     /**
      * Extracts file name and extension from a file, path, or URL.
      *
-     * @since 0.2.0
-     * 
      * @param string $image A file, path, or URL.
      * @return string The file name.
      */
@@ -283,8 +255,6 @@ class WP_Image_Util {
     /**
      * Gets the first image inside of HTML.
      *
-     * @since 0.1.0
-     * 
      * @param string $content Content with some markup, usually post content.
      * @param string $fallback Optional. URL of fallback image to use, if none are found in HTML.
      * @return string URL of first image.
@@ -316,8 +286,6 @@ class WP_Image_Util {
     /**
      * Gets a post's featured image URL.
      *
-     * @since 0.1.0
-     * 
      * @param string $post_id Post id.
      * @param mixed $size Size of featured image to return.
      * @return string Featured image URL.
@@ -337,8 +305,6 @@ class WP_Image_Util {
      *
      * Must be used inside of the loop.
      *
-     * @since 0.1.0
-     * 
      * @param int $width Width of thumbnail output.
      * @param int $height Optional. Height of thumbnail output (will match width, if not supplied).
      * @param boolean $crop Optional. If thumbnail should be cropped.
@@ -392,8 +358,6 @@ class WP_Image_Util {
     /**
      * Determines if an image url is externally hosted.
      *
-     * @since 0.2.0
-     *
      * @param string $image_url Image url.
      * @return boolean Whether an image is internally or externally hosted.
      */
@@ -413,8 +377,6 @@ class WP_Image_Util {
     /**
      * Gets the path of an image based on image url.
      *
-     * @since 0.2.0
-     *
      * @param string $image_url Image url.
      * @return string Image path.
      */
@@ -430,8 +392,6 @@ class WP_Image_Util {
 
     /**
      * Removes query string from a url.
-     *
-     * @since 0.2.0
      *
      * @param string $url Any url.
      * @return string Url with the query string removed.
