@@ -1,23 +1,23 @@
 <?php
 /**
- * WP Image.
+ * WP Image Util.
  *
  * An image utility for WordPress.
  *
- * @link https://github.com/manovotny/wp-image
+ * @link https://github.com/manovotny/wp-image-util
  * @since 0.1.0
  *
- * @package WP_Images
+ * @package WPImageUtil
  *
  * @author Michael Novotny <manovotny@gmail.com>
  * @copyright 2014 Michael Novotny
  * @license GPL-3.0+
  *
  * @wordpress-plugin
- * Plugin Name: WP Image
- * Plugin URI: https://github.com/manovotny/wp-image
+ * Plugin Name: WPImageUtil
+ * Plugin URI: https://github.com/manovotny/wp-image-util
  * Description: An image utility for WordPress.
- * Version: 0.2.0
+ * Version: 0.3.0
  * Author: Michael Novotny
  * Author URI: http://manovotny.com
  * Text Domain: English
@@ -50,7 +50,7 @@ if ( ! defined( 'WPINC' ) ) {
 ---------------------------------------------------------------------------------- */
 
 // Include plugin classes.
-require_once( __DIR__ . '/classes/class-wp-image.php' );
+require_once( __DIR__ . '/classes/class-wp-image-util.php' );
 
 // Load plugin.
-add_action( 'plugins_loaded', array( 'WP_Image', 'get_instance' ) );
+add_action( 'plugins_loaded', array( 'WP_Image_Util', 'get_instance' ) );

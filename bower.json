@@ -1,10 +1,10 @@
 {
-  "name": "wp-image",
-  "version": "0.1.0",
+  "name": "wp-image-util",
+  "version": "0.3.0",
   "description": "An image utility for WordPress.",
   "repository": {
     "type": "git",
-    "url": "git://github.com/manovotny/iowagirleats.com.git"
+    "url": "git://github.com/manovotny/wp-image-util.git"
   },
   "keywords": [
     "image",

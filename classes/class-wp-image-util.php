@@ -1,11 +1,11 @@
 <?php
 /**
- * WP Image.
+ * WP_Image_Util.
  *
- * @link https://github.com/manovotny/wp-image
+ * @link https://github.com/manovotny/wp-image-util
  * @since 0.1.0
  *
- * @package WP_Image
+ * @package WP_Image_Util
  *
  * @author Michael Novotny <manovotny@gmail.com>
  * @copyright 2014 Michael Novotny
@@ -21,7 +21,7 @@
 /\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\//\/\/\/\/\/\/\/\/\/\
 */
 
-class WP_Image {
+class WP_Image_Util {
 
     /* Properties
     ---------------------------------------------------------------------------------- */
@@ -34,7 +34,7 @@ class WP_Image {
      *
      * @since 0.1.0
      * @access protected static
-     * @var WP_Image
+     * @var WP_Image_Util
      */
     protected static $instance = null;
 
@@ -43,7 +43,7 @@ class WP_Image {
      *
      * @since 0.1.0
      *
-     * @return WP_Image Instance of the WP_Image class.
+     * @return WP_Image_Util Instance of the WP_Image_Util class.
      */
     public static function get_instance() {
 
