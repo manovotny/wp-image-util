@@ -264,15 +264,25 @@ class WP_Image_Util {
         // Check for content.
         if ( ! empty( $content ) ) {
 
-            // Find all images.
-            $pattern = '~<img (?:.*?)src(?:\s*)=(?:\s*)"(.*?)"(?:.*?)/>~';
-            preg_match( $pattern, $content, $matches );
+            // Get images.
+            $images = htmlqp( $content, 'img' );
 
-            // Check for matches.
-            if ( ! empty( $matches ) ) {
+            // Loop over images.
+            foreach ( $images as $image ) {
 
-                // Return first image.
-                return $matches[ 1 ];
+                // Get image.
+                $image_source = $image->attr( 'src' );
+
+                // Remove query string
+                $image_source = $this->remove_query_string( $image_source );
+
+                // Check for image source.
+                if ( ! empty( $image_source ) ) {
+
+                    // Return image source.
+                    return $image_source;
+
+                }
 
             }
 
