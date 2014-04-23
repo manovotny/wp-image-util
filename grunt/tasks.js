@@ -8,10 +8,14 @@ module.exports = function (grunt) {
     ]);
 
     grunt.registerTask('build', [
-        'clean',
-        'copy',
+        'inc',
         'js',
         'version'
+    ]);
+
+    grunt.registerTask('inc', [
+        'clean',
+        'copy'
     ]);
 
     grunt.registerTask('js', [

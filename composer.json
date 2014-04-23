@@ -5,7 +5,7 @@
   "type": "library",
   "homepage": "https://github.com/manovotny/wp-image-util/",
   "license": "GPL-3.0+",
-  "require": {
+  "require-dev": {
     "querypath/QueryPath": "3.0.2"
   }
 }
