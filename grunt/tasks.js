@@ -22,7 +22,7 @@ module.exports = function (grunt) {
         'jslint'
     ]);
 
-    grunt.registerTask('version', [
+    grunt.registerTask('bump', [
         'replace'
     ]);
 
