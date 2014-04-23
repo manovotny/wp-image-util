@@ -1,0 +1,11 @@
+{
+  "name": "manovotny/wp-image-util",
+  "version": "0.3.1",
+  "description": "An image utility for WordPress.",
+  "type": "library",
+  "homepage": "https://github.com/manovotny/wp-image-util/",
+  "license": "GPL-3.0+",
+  "require": {
+    "querypath/QueryPath": "3.0.2"
+  }
+}
