@@ -35,24 +35,22 @@
 /* Access
 ---------------------------------------------------------------------------------- */
 
-// If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
 
     die;
 
-} // end if
+}
 
 /* Includes
 ---------------------------------------------------------------------------------- */
 
-// Include QueryPath.
 require_once __DIR__ . '/inc/querypath/qp.php';
 
 /* Plugin
 ---------------------------------------------------------------------------------- */
 
-// Include plugin classes.
-require_once __DIR__ . '/classes/class-wp-image-util.php';
+if ( ! class_exists( 'WP_Image_Util' ) ) {
 
-// Load plugin.
-add_action( 'plugins_loaded', array( 'WP_Image_Util', 'get_instance' ) );
+    require_once __DIR__ . '/classes/class-wp-image-util.php';
+
+}
