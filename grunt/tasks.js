@@ -10,7 +10,11 @@ module.exports = function (grunt) {
     grunt.registerTask('build', [
         'inc',
         'js',
-        'version'
+        'bump'
+    ]);
+
+    grunt.registerTask('bump', [
+        'replace'
     ]);
 
     grunt.registerTask('inc', [
@@ -20,10 +24,6 @@ module.exports = function (grunt) {
 
     grunt.registerTask('js', [
         'jslint'
-    ]);
-
-    grunt.registerTask('bump', [
-        'replace'
     ]);
 
 };
