@@ -16,7 +16,7 @@ module.exports = (function () {
             name: 'WP Image Util',
             slug: 'wp-image-util',
             url: 'https://github.com/manovotny/wp-image-util',
-            version: '0.5.2'
+            version: '1.0.0'
         },
         translations: {
             domain: 'wp-image-util',
