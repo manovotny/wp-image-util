@@ -1,14 +1,6 @@
 <?php
 /**
- * An image utility for WordPress.
- *
- * A collection of helpful utilities for working with images in WordPress.
- *
  * @package WP_Image_Util
- * @author Michael Novotny <manovotny@gmail.com>
- * @license GPL-3.0+
- * @link https://github.com/manovotny/wp-image-util
- * @copyright 2014 Michael Novotny
  *
  * @wordpress-plugin
  * Plugin Name: WP Image Util
@@ -19,6 +11,9 @@
  * Author URI: http://manovotny.com
  * License: GPL-3.0+
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
+ * Domain Path: /TRANSLATIONS_PATH
+ * Text Domain: TRANSLATIONS_DOMAIN
+ * GitHub Plugin URI: https://github.com/manovotny/wp-image-util
  */
 
 /* Access
@@ -30,16 +25,16 @@ if ( ! defined( 'WPINC' ) ) {
 
 }
 
-/* Libraries
+/* Composer
 ---------------------------------------------------------------------------------- */
 
-require_once __DIR__ . '/lib/querypath/qp.php';
+if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
 
-/* Plugin
----------------------------------------------------------------------------------- */
-
-if ( ! class_exists( 'WP_Image_Util' ) ) {
-
-    require_once __DIR__ . '/classes/class-wp-image-util.php';
+    require_once __DIR__ . '/vendor/autoload.php';
 
 }
+
+/* Initialization
+---------------------------------------------------------------------------------- */
+
+require_once __DIR__ . '/src/initialize.php';

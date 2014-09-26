@@ -3,6 +3,41 @@
     "version": "0.5.2",
     "description": "An image utility for WordPress.",
     "type": "library",
-    "homepage": "https://github.com/manovotny/wp-image-util/",
-    "license": "GPL-3.0+"
+    "homepage": "https://github.com/manovotny/wp-image-util",
+    "authors": [
+        {
+            "name": "Michael Novotny",
+            "email": "manovotny@gmail.com",
+            "homepage": "http://manovotny.com",
+            "role": "Developer"
+        }
+    ],
+    "license": "GPL-3.0+",
+    "keywords": [
+        "image",
+        "utility",
+        "wordpress"
+    ],
+    "require": {
+
+    },
+    "require-dev": {
+        "manovotny/wp-phpunit-helpers": "0.1.0",
+        "phpunit/phpunit": "4.1.*"
+    },
+    "autoload": {
+        "classmap": [
+            "src"
+        ],
+        "files": [
+            "wp-image-util.php"
+        ]
+    },
+    "autoload-dev": {
+        "classmap": [
+            "vendor/phpunit",
+            "vendor/sebastian",
+            "vendor/symfony"
+        ]
+    }
 }

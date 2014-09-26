@@ -12,6 +12,10 @@
         "wordpress"
     ],
     "authors": [
-        {"name": "Michael Novotny", "email": "manovotny@gmail.com", " homepage": "http://manovotny.com"}
+        {
+            "name": "Michael Novotny",
+            "email": "manovotny@gmail.com",
+            "homepage": "http://manovotny.com"
+        }
     ]
 }

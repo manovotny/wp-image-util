@@ -1,0 +1,35 @@
+default:
+  - build
+
+init:
+  - config
+  - shell:install
+  - update
+  - build
+
+config:
+  - replace
+  - rename
+
+build:
+  - clean
+  - lint
+  - test
+
+update:
+  - shell:update
+  - curl
+  - build
+
+lint:
+  - jshint
+  - phplint
+
+test:
+  - phpunit
+
+release:
+  - build
+  - replace:project_version
+  - replace:update_project
+  - shell:release
