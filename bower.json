@@ -1,17 +1,17 @@
 {
-  "name": "wp-image-util",
-  "version": "0.5.2",
-  "description": "An image utility for WordPress.",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/manovotny/wp-image-util.git"
-  },
-  "keywords": [
-    "image",
-    "utility",
-    "wordpress"
-  ],
-  "authors": [
-    { "name": "Michael Novotny", "email": "manovotny@gmail.com"," homepage": "http://manovotny.com" }
-  ]
+    "name": "wp-image-util",
+    "version": "0.5.2",
+    "description": "An image utility for WordPress.",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/manovotny/wp-image-util.git"
+    },
+    "keywords": [
+        "image",
+        "utility",
+        "wordpress"
+    ],
+    "authors": [
+        {"name": "Michael Novotny", "email": "manovotny@gmail.com", " homepage": "http://manovotny.com"}
+    ]
 }
