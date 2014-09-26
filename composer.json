@@ -1,7 +1,7 @@
 {
     "name": "manovotny/wp-image-util",
     "version": "0.5.2",
-    "description": "An image utility for WordPress.",
+    "description": "A collection of helpful utilities for working with images in WordPress.",
     "type": "library",
     "homepage": "https://github.com/manovotny/wp-image-util",
     "authors": [

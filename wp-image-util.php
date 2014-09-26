@@ -5,14 +5,14 @@
  * @wordpress-plugin
  * Plugin Name: WP Image Util
  * Plugin URI: https://github.com/manovotny/wp-image-util
- * Description: An image utility for WordPress.
+ * Description: A collection of helpful utilities for working with images in WordPress.
  * Version: 0.5.2
  * Author: Michael Novotny
  * Author URI: http://manovotny.com
  * License: GPL-3.0+
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
- * Domain Path: /TRANSLATIONS_PATH
- * Text Domain: TRANSLATIONS_DOMAIN
+ * Domain Path: /lang
+ * Text Domain: wp-image-util
  * GitHub Plugin URI: https://github.com/manovotny/wp-image-util
  */
 

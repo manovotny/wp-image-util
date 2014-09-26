@@ -19,7 +19,7 @@ module.exports = (function () {
         },
         project: {
             composer: 'manovotny/wp-image-util',
-            description: 'An image utility for WordPress.',
+            description: 'A collection of helpful utilities for working with images in WordPress.',
             git: 'git://github.com/manovotny/wp-image-util.git',
             name: 'WP Image Util',
             slug: 'wp-image-util',
