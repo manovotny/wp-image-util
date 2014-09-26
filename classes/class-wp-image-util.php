@@ -261,34 +261,31 @@ class WP_Image_Util {
      */
     public function get_first_image( $content, $fallback = '' ) {
 
-        // Check for content.
         if ( ! empty( $content ) ) {
 
-            // Get images.
-            $images = htmlqp( $content, 'img' );
+            $dom_util = WP_DOM_Util::get_instance();
 
-            // Loop over images.
+            $dom = new DOMDocument();
+            $dom->preserveWhiteSpace = false;
+            $dom->LoadHTML( $dom_util->get_meta() . $content );
+
+            $images = $dom->getElementsByTagName( 'img' );
+
             foreach ( $images as $image ) {
 
-                // Get image.
-                $image_source = $image->attr( 'src' );
+                $image_source = $image->getAttribute( 'src' );
 
-                // Remove query string
                 $image_source = $this->remove_query_string( $image_source );
 
-                // Check for image source.
                 if ( ! empty( $image_source ) ) {
 
-                    // Return image source.
                     return $image_source;
 
                 }
-
             }
 
         }
 
-        // No images found, return fallback image.
         return $fallback;
 
     }

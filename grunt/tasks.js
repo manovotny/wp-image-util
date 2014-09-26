@@ -17,11 +17,6 @@ module.exports = function (grunt) {
         'replace'
     ]);
 
-    grunt.registerTask('lib', [
-        'clean',
-        'copy'
-    ]);
-
     grunt.registerTask('js', [
         'jslint'
     ]);

@@ -4,8 +4,5 @@
     "description": "An image utility for WordPress.",
     "type": "library",
     "homepage": "https://github.com/manovotny/wp-image-util/",
-    "license": "GPL-3.0+",
-    "require-dev": {
-        "querypath/QueryPath": "3.0.2"
-    }
+    "license": "GPL-3.0+"
 }
