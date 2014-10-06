@@ -33,3 +33,4 @@ release:
   - replace:project_version
   - replace:update_project
   - shell:release
+  - copy
