@@ -1,36 +1,55 @@
+# Default
+#----------------------------------------------------------------------------------
+
 default:
   - build
 
-init:
-  - config
-  - shell:install
-  - update
-  - build
+# Setup
+#----------------------------------------------------------------------------------
 
-config:
+init:
+  - shell:init
   - replace
   - rename
+  - build
 
-build:
-  - clean
-  - lint
-  - test
+refresh:
+  - shell:refresh
 
 update:
   - shell:update
-  - curl
   - build
+
+upgrade:
+  - shell:upgrade
+
+# Build
+#----------------------------------------------------------------------------------
+
+build:
+  - clean:build
+  - curl
+  - lint
+  - test
 
 lint:
   - jshint
+  - jscs
   - phplint
 
 test:
   - phpunit
 
+# Release
+#----------------------------------------------------------------------------------
+
 release:
   - build
   - replace:project_version
   - replace:update_project
-  - shell:release
-  - copy
+
+# Deploy
+#----------------------------------------------------------------------------------
+
+deploy:
+  - clean:deploy

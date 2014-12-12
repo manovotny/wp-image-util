@@ -4,7 +4,13 @@ module.exports = function (grunt) {
 
     require('time-grunt')(grunt);
 
-    require('load-grunt-config')(grunt);
+    require('load-grunt-config')(grunt, {
+        loadGruntTasks: {
+            pattern: [
+                'grunt-*'
+            ]
+        }
+    });
 
     grunt.loadTasks('grunt');
 
