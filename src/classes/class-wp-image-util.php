@@ -116,7 +116,7 @@ class WP_Image_Util {
         $image_url = $this->wp_url_util->remove_query_string( $image_url );
 
         // Get image path.
-        $image_path = $this->wp_url_util->convert_url_to_path( $image_url );
+        $image_path = $this->wp_url_util->convert_url_to_absolute_path( $image_url );
 
         // Generate thumbnail name.
         $thumbnail_name = $this->generate_thumbnail_name( $image_url, $width, $height );
@@ -125,7 +125,7 @@ class WP_Image_Util {
         $thumbnail_path = trailingslashit( dirname( $image_path ) ) . $thumbnail_name;
 
         // Get url to proposed generated thumbnail.
-        $thumbnail_url = $this->wp_url_util->convert_path_to_url( $thumbnail_path );
+        $thumbnail_url = $this->wp_url_util->convert_absolute_path_to_url( $thumbnail_path );
 
         // Check if thumbnail already exists.
         if ( is_file( $thumbnail_path ) ) {
