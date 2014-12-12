@@ -25,7 +25,7 @@ module.exports = (function () {
             slug: 'wp-image-util',
             type: 'plugin', // Should be `plugin` or `theme`.
             url: 'https://github.com/manovotny/wp-image-util',
-            version: '1.0.2'
+            version: '1.1.0'
         }
     };
 
