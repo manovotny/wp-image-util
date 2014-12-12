@@ -78,6 +78,40 @@ class WP_Image_Util {
     }
 
     /**
+     * Generates a datauri of an image.
+     *
+     * @param $absolute_path_to_file string Absolute path to an image file.
+     * @return string Encoded datauri of image.
+     */
+    public function generate_datauri( $absolute_path_to_file ) {
+
+        $datauri_header = '';
+
+        $file_type = $this->wp_url_util->get_file_extension( $absolute_path_to_file );
+
+        switch ( $file_type ) {
+
+            case 'png':
+
+                $datauri_header = 'data:image/png;base64,';
+
+                break;
+
+            case 'svg':
+
+                $datauri_header = 'data:image/svg+xml;base64,';
+
+                break;
+
+        }
+
+        $file_contents = file_get_contents( $absolute_path_to_file );
+
+        return $datauri_header . base64_encode( $file_contents );
+
+    }
+
+    /**
      * Generate a thumbnail, at a specified size, from an image url.
      *
      * @param string $image_url URL to image to create a thumbnail with.
