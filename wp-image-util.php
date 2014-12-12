@@ -6,7 +6,7 @@
  * Plugin Name: WP Image Util
  * Plugin URI: https://github.com/manovotny/wp-image-util
  * Description: A collection of helpful utilities for working with images in WordPress.
- * Version: 1.0.1
+ * Version: 1.0.2
  * Author: Michael Novotny
  * Author URI: http://manovotny.com
  * License: GPL-3.0+
