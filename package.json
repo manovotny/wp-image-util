@@ -1,6 +1,6 @@
 {
     "name": "wp-image-util",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "description": "A collection of helpful utilities for working with images in WordPress.",
     "author": "Michael Novotny <http://manovotny.com>",
     "repository": {
