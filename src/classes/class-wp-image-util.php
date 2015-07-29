@@ -184,15 +184,9 @@ class WP_Image_Util {
 
         $wp_url_util = WP_Url_Util::get_instance();
 
-        if ( ! empty( $content ) ) {
+        $images = $this->get_image_elements( $content );
 
-            $dom_util = WP_DOM_Util::get_instance();
-
-            $dom = new DOMDocument();
-            $dom->preserveWhiteSpace = false;
-            $dom->LoadHTML( $dom_util->get_meta() . $content );
-
-            $images = $dom->getElementsByTagName( 'img' );
+        if ( $images->length ) {
 
             foreach ( $images as $image ) {
 
@@ -220,15 +214,9 @@ class WP_Image_Util {
 
         $wp_image_class_prefix = 'wp-image-';
 
-        if ( ! empty( $content ) ) {
+        $images = $this->get_image_elements( $content );
 
-            $dom_util = WP_DOM_Util::get_instance();
-
-            $dom = new DOMDocument();
-            $dom->preserveWhiteSpace = false;
-            $dom->LoadHTML( $dom_util->get_meta() . $content );
-
-            $images = $dom->getElementsByTagName( 'img' );
+        if ( $images->length ) {
 
             foreach ( $images as $image ) {
 
@@ -250,6 +238,24 @@ class WP_Image_Util {
         }
 
         return 0;
+
+    }
+
+    public function get_image_elements( $content ) {
+
+        if ( ! empty( $content ) ) {
+
+            $dom_util = WP_DOM_Util::get_instance();
+
+            $dom = new DOMDocument();
+            $dom->preserveWhiteSpace = false;
+            $dom->LoadHTML( $dom_util->get_meta() . $content );
+
+            return $dom->getElementsByTagName( 'img' );
+
+        }
+
+        return new DOMNodeList();
 
     }
 
