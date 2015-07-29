@@ -251,6 +251,46 @@ class WP_Image_Util {
     }
 
     /**
+     *
+     */
+    public function get_first_image_thumbnail_id( $content ) {
+
+        $wp_image_class_prefix = 'wp-image-';
+
+        if ( ! empty( $content ) ) {
+
+            $dom_util = WP_DOM_Util::get_instance();
+
+            $dom = new DOMDocument();
+            $dom->preserveWhiteSpace = false;
+            $dom->LoadHTML( $dom_util->get_meta() . $content );
+
+            $images = $dom->getElementsByTagName( 'img' );
+
+            foreach ( $images as $image ) {
+
+                $image_class = $image->getAttribute( 'class' );
+
+                $image_classes = explode( ' ', $image_class );
+
+                foreach ( $image_classes as $class ) {
+
+                    if ( false !== strpos( $class, $wp_image_class_prefix ) ) {
+
+                        return intval( str_replace( $wp_image_class_prefix, '', $class ) );
+
+                    }
+
+                }
+            }
+
+        }
+
+        return 0;
+
+    }
+
+    /**
      * Gets a post's featured image URL.
      *
      * @param string $post_id Post id.
