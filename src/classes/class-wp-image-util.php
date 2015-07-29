@@ -208,7 +208,10 @@ class WP_Image_Util {
     }
 
     /**
+     * Gets the first WordPress image thumbnail id inside of content.
      *
+     * @param string $content Content with some markup, usually post content.
+     * @return int|string First WordPress image thumbnail id, if found. Otherwise, returns an empty string.
      */
     public function get_first_image_thumbnail_id( $content ) {
 
@@ -237,10 +240,16 @@ class WP_Image_Util {
 
         }
 
-        return 0;
+        return '';
 
     }
 
+    /**
+     * Gets the image DOM elements from content.
+     *
+     * @param string $content Content with some markup, usually post content.
+     * @return DOMNodeList List of image elements found in content.
+     */
     public function get_image_elements( $content ) {
 
         if ( ! empty( $content ) ) {
