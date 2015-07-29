@@ -5,9 +5,6 @@ class WP_Image_Util {
     /* Properties
     ---------------------------------------------------------------------------------- */
 
-    /* Instance
-    ---------------------------------------------- */
-
     /**
      * Instance of the class.
      *
@@ -15,50 +12,8 @@ class WP_Image_Util {
      */
     protected static $instance = null;
 
-    /**
-     * Get accessor method for instance property.
-     *
-     * @return WP_Image_Util Instance of the WP_Image_Util class.
-     */
-    public static function get_instance() {
-
-        if ( null == self::$instance ) {
-
-            self::$instance = new self;
-
-        }
-
-        return self::$instance;
-
-    }
-
-    /* WP Url Util
-    ---------------------------------------------- */
-
-    /**
-     * Instance of WP Url Util.
-     *
-     * @var WP_Url_Util
-     */
-    private $wp_url_util;
-
-    /* Constructor
-    ---------------------------------------------------------------------------------- */
-
-    /**
-     * Initialize class.
-     */
-    public function __construct() {
-
-        $this->wp_url_util = WP_Url_Util::get_instance();
-
-    }
-
-    /* Methods
-    ---------------------------------------------------------------------------------- */
-
     /* Public
-    ---------------------------------------------- */
+    ---------------------------------------------------------------------------------- */
 
     /**
      * Echoes a thumbnail of the first image in the current post.
@@ -85,9 +40,11 @@ class WP_Image_Util {
      */
     public function generate_datauri( $absolute_path_to_file ) {
 
+        $wp_url_util = WP_Url_Util::get_instance();
+
         $datauri_header = '';
 
-        $file_type = $this->wp_url_util->get_file_extension( $absolute_path_to_file );
+        $file_type = $wp_url_util->get_file_extension( $absolute_path_to_file );
 
         switch ( $file_type ) {
 
@@ -122,8 +79,10 @@ class WP_Image_Util {
      */
     public function generate_thumbnail( $image_url, $width, $height, $crop = true ) {
 
+        $wp_url_util = WP_Url_Util::get_instance();
+
         // Check for external image.
-        if ( $this->wp_url_util->is_external_file( $image_url ) ) {
+        if ( $wp_url_util->is_external_file( $image_url ) ) {
 
             /*
              * We are not in possession of the image. We have no choice but to return
@@ -135,7 +94,7 @@ class WP_Image_Util {
         }
 
         // Check if image is in the upload directory.
-        if ( ! $this->wp_url_util->is_uploaded_file( $image_url ) ) {
+        if ( ! $wp_url_util->is_uploaded_file( $image_url ) ) {
 
             /*
              * We don't want to mess with images outside of the uploads, like smiley faces.
@@ -147,10 +106,10 @@ class WP_Image_Util {
         }
 
         // Remove query string.
-        $image_url = $this->wp_url_util->remove_query_string( $image_url );
+        $image_url = $wp_url_util->remove_query_string( $image_url );
 
         // Get image path.
-        $image_path = $this->wp_url_util->convert_url_to_absolute_path( $image_url );
+        $image_path = $wp_url_util->convert_url_to_absolute_path( $image_url );
 
         // Generate thumbnail name.
         $thumbnail_name = $this->generate_thumbnail_name( $image_url, $width, $height );
@@ -159,7 +118,7 @@ class WP_Image_Util {
         $thumbnail_path = trailingslashit( dirname( $image_path ) ) . $thumbnail_name;
 
         // Get url to proposed generated thumbnail.
-        $thumbnail_url = $this->wp_url_util->convert_absolute_path_to_url( $thumbnail_path );
+        $thumbnail_url = $wp_url_util->convert_absolute_path_to_url( $thumbnail_path );
 
         // Check if thumbnail already exists.
         if ( is_file( $thumbnail_path ) ) {
@@ -201,11 +160,13 @@ class WP_Image_Util {
      */
     public function generate_thumbnail_name( $image, $width, $height ) {
 
+        $wp_url_util = WP_Url_Util::get_instance();
+
         // Get file name.
-        $file_name = $this->wp_url_util->get_file_name( $image );
+        $file_name = $wp_url_util->get_file_name( $image );
 
         // Get file extension.
-        $file_extension = $this->wp_url_util->get_file_extension( $image );
+        $file_extension = $wp_url_util->get_file_extension( $image );
 
         // Generate thumbnail name.
         return $file_name . '-' . $width . 'x' . $height . '.' . $file_extension;
@@ -221,6 +182,8 @@ class WP_Image_Util {
      */
     public function get_first_image( $content, $fallback = '' ) {
 
+        $wp_url_util = WP_Url_Util::get_instance();
+
         if ( ! empty( $content ) ) {
 
             $dom_util = WP_DOM_Util::get_instance();
@@ -235,7 +198,7 @@ class WP_Image_Util {
 
                 $image_source = $image->getAttribute( 'src' );
 
-                $image_source = $this->wp_url_util->remove_query_string( $image_source );
+                $image_source = $wp_url_util->remove_query_string( $image_source );
 
                 if ( ! empty( $image_source ) ) {
 
@@ -287,6 +250,23 @@ class WP_Image_Util {
         }
 
         return 0;
+
+    }
+
+    /**
+     * Gets instance of class.
+     *
+     * @return WP_Recipe_Post_Type Instance of the class.
+     */
+    public static function get_instance() {
+
+        if ( null == self::$instance ) {
+
+            self::$instance = new self;
+
+        }
+
+        return self::$instance;
 
     }
 
